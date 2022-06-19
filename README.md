@@ -1,2 +1,2 @@
 # todoer
-list todo created at flask
+to do list created in flask
