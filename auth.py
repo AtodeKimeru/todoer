@@ -58,7 +58,7 @@ def login():
         if error is None:
             session.clear()
             session['user_id'] = user['id']
-            return redirect(url_for('index'))
+            return redirect(url_for('todo.index'))
 
         flash(error)
 
@@ -74,7 +74,7 @@ def load_logged_in_user():
     else:
         db, c = get_db()
         c.execute(
-            'select * from user where username = %s', (user_id,)
+            'select * from user where id = %s', (user_id,)
         )
         g.user = c.fetchone()
 
@@ -88,3 +88,9 @@ def login_required(view):
         return view(**kwargs)
 
     return wrapped_view
+
+
+@bp.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('auth.login'))
